@@ -1,0 +1,3 @@
+gcc -o lab2_1 lab2_1.c stack_v.c myinput.c dir_func.c
+
+gcc -o lab2_2 lab2_2.c stack_s.c myinput.c dir_func.c
