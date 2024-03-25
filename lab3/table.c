@@ -281,25 +281,25 @@ char *myfilereadline_t(FILE *file) {
 }
 
 int inputfromfile_t(Table *table) {
-	char *filename_input = myreadline("Enter the name of file: ");
-	if (filename_input == NULL) {
-		free(filename_input);
-		return 1;
-	}
-	FILE *file_t = NULL;
-	file_t = fopen(filename_input, "r");
-	while (file_t == NULL) {
+    char *filename_input = myreadline("Enter the name of file: ");
+    if (filename_input == NULL) {
         free(filename_input);
-		filename_input = myreadline("File opening error, try again: ");
-		if (filename_input == NULL) {
-		    free(filename_input);
-		    //fclose(file_t);
-		    return 1;
-		}
-		file_t = fopen(filename_input, "r");
-	}
+        return 1;
+    }
+    FILE *file_t = NULL;
+    file_t = fopen(filename_input, "r");
+    while (file_t == NULL) {
+        free(filename_input);
+        filename_input = myreadline("File opening error, try again: ");
+        if (filename_input == NULL) {
+            free(filename_input);
+            //fclose(file_t);
+            return 1;
+        }
+        file_t = fopen(filename_input, "r");
+    }
     int len = 0;
-	fscanf(file_t, "%d%*c", &len);
+    fscanf(file_t, "%d%*c", &len);
     if (len > table->msize) {
         printf("Not all elements will be read\n");
         len = table->msize;
@@ -308,12 +308,12 @@ int inputfromfile_t(Table *table) {
     char *key = NULL;
     char *par = NULL;
     char *info = NULL;
-	for (int i = 0; i < len; i++){
+    for (int i = 0; i < len; i++){
         key = myfilereadline_t(file_t);
         if (key[0] == '\0' || key == NULL) {
             printf("End of the open file. %d values have been read\n", read);
             free(filename_input);
-	        fclose(file_t);
+            fclose(file_t);
             return 0;
         }
         par = myfilereadline_t(file_t);
@@ -321,7 +321,7 @@ int inputfromfile_t(Table *table) {
             printf("End of the open file. %d values have been read\n", read);
             free(key);
             free(filename_input);
-	        fclose(file_t);
+            fclose(file_t);
             return 0;
         }
         info = myfilereadline_t(file_t);
@@ -330,7 +330,7 @@ int inputfromfile_t(Table *table) {
             free(key);
             free(par);
             free(filename_input);
-	        fclose(file_t);
+            fclose(file_t);
             return 0;
         }
         if (par[0] == '\0') {
@@ -342,11 +342,11 @@ int inputfromfile_t(Table *table) {
         }
         read++;
         free(key); free(par); free(info);
-	}
-	free(filename_input);
-	fclose(file_t);
+    }
+    free(filename_input);
+    fclose(file_t);
     printf("%d values have been read\n", read);
-	return 0;
+    return 0;
 }
 ///////////////////////////////////////////////////////////
 int compare(const void *a, const void *b) {
